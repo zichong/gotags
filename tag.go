@@ -37,17 +37,17 @@ type TagType string
 
 // Tag types.
 const (
-	Package     TagType = "p"
-	Import      TagType = "i"
-	Constant    TagType = "c"
-	Variable    TagType = "v"
-	Type        TagType = "t"
-	Interface   TagType = "n"
-	Field       TagType = "w"
-	Embedded    TagType = "e"
-	Method      TagType = "m"
-	Constructor TagType = "r"
-	Function    TagType = "f"
+	Package     TagType = "package"
+	Import      TagType = "import"
+	Constant    TagType = "constant"
+	Variable    TagType = "variable"
+	Type        TagType = "type"
+	Interface   TagType = "interface"
+	Field       TagType = "field"
+	Embedded    TagType = "embedded"
+	Method      TagType = "method"
+	Constructor TagType = "constructor"
+	Function    TagType = "function"
 )
 
 // NewTag creates a new Tag.
