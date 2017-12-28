@@ -4,11 +4,9 @@ import (
 	"bufio"
 	"flag"
 	"fmt"
-	"io"
 	"os"
 	"path/filepath"
 	"runtime"
-	"sort"
 	"strings"
 )
 
@@ -173,7 +171,8 @@ func main() {
 		}
 	}
 
-	fieldSet, err := parseFields(fields)
+	// fieldSet, err := parseFields(fields)
+	_, err = parseFields(fields)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "%s\n\n", err)
 		flags.Usage()
@@ -199,36 +198,38 @@ func main() {
 		tags = append(tags, ts...)
 	}
 
-	output := createMetaTags()
-	for _, tag := range tags {
-		if fieldSet.Includes(Language) {
-			tag.Fields[Language] = "Go"
-		}
-		output = append(output, tag.String())
-	}
+	Tags2Graph(tags)
 
-	if sortOutput {
-		sort.Sort(sort.StringSlice(output))
-	}
+	// output := createMetaTags()
+	// for _, tag := range tags {
+	// 	if fieldSet.Includes(Language) {
+	// 		tag.Fields[Language] = "Go"
+	// 	}
+	// 	output = append(output, tag.String())
+	// }
 
-	var out io.Writer
-	if len(outputFile) == 0 || outputFile == "-" {
-		// For compatibility with older gotags versions, also write to stdout
-		// when outputFile is not specified.
-		out = os.Stdout
-	} else {
-		file, err := os.Create(outputFile)
-		if err != nil {
-			fmt.Fprintf(os.Stderr, "could not create output file: %s\n", err)
-			os.Exit(1)
-		}
-		out = file
-		defer file.Close()
-	}
+	// if sortOutput {
+	// 	sort.Sort(sort.StringSlice(output))
+	// }
 
-	for _, s := range output {
-		fmt.Fprintln(out, s)
-	}
+	// var out io.Writer
+	// if len(outputFile) == 0 || outputFile == "-" {
+	// 	// For compatibility with older gotags versions, also write to stdout
+	// 	// when outputFile is not specified.
+	// 	out = os.Stdout
+	// } else {
+	// 	file, err := os.Create(outputFile)
+	// 	if err != nil {
+	// 		fmt.Fprintf(os.Stderr, "could not create output file: %s\n", err)
+	// 		os.Exit(1)
+	// 	}
+	// 	out = file
+	// 	defer file.Close()
+	// }
+
+	// for _, s := range output {
+	// 	fmt.Fprintln(out, s)
+	// }
 }
 
 // createMetaTags returns a list of meta tags.
